@@ -57,10 +57,9 @@ def add_caption(image, text, position = "bottom-mid",  font = None, text_color= 
     width, height = image.size
     lines  =  process_mulline_text(draw,text,font,width)
     text_positions = []
-    text_position = (0,0)
     maxwidth = 0
     for ind, line in enumerate(lines[::-1]):
-        left, top, right, bottom = draw.textbbox(text_position, line, font=font)
+        left, top, right, bottom = draw.textbbox((0,0), line, font=font)
         text_width, text_height = right - left, bottom - top
         if position == 'bottom-right':
             text_position = (width - text_width - 10, height -  (text_height + 20))
