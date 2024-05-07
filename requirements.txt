@@ -1,7 +1,7 @@
 gradio==4.21.0
 xformers==0.0.25.post1
-torch==2.2.2+cu121
-torchvision==0.17.2+cu121
+torch==2.2.2
+torchvision==0.17.2
 diffusers
 transformers
 huggingface-hub
