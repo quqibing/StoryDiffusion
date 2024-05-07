@@ -35,7 +35,7 @@ def process_mulline_text(draw, text, font, max_width):
     for word in words:
         test_line = f"{current_line} {word}".strip()
         # Check the width of the line with this word added
-        width, _ = draw.textsize(test_line, font=font)
+        width = draw.textlength(test_line, font=font)
         if width <= max_width:
             # If it fits, add this word to the current line
             current_line = test_line
@@ -57,9 +57,11 @@ def add_caption(image, text, position = "bottom-mid",  font = None, text_color= 
     width, height = image.size
     lines  =  process_mulline_text(draw,text,font,width)
     text_positions = []
+    text_position = (0,0)
     maxwidth = 0
     for ind, line in enumerate(lines[::-1]):
-        text_width, text_height = draw.textsize(line, font=font)
+        left, top, right, bottom = draw.textbbox(text_position, line, font=font)
+        text_width, text_height = right - left, bottom - top
         if position == 'bottom-right':
             text_position = (width - text_width - 10, height -  (text_height + 20))
         elif position == 'bottom-left':
@@ -110,7 +112,7 @@ def get_comic_classical(images,captions = None,font = None,pad_image = None):
     if pad_image == None:
         raise ValueError("pad_image is None")
     images = [add_white_border(image) for image in images]
-    pad_image = pad_image.resize(images[0].size, Image.ANTIALIAS)
+    pad_image = pad_image.resize(images[0].size, Image.LANCZOS)
     images_groups = distribute_images2(images,pad_image)
     print(images_groups)
     if captions != None:
@@ -127,7 +129,7 @@ def get_comic_classical(images,captions = None,font = None,pad_image = None):
 def get_comic_4panel(images,captions = [],font = None,pad_image = None):
     if pad_image == None:
         raise ValueError("pad_image is None")
-    pad_image = pad_image.resize(images[0].size, Image.ANTIALIAS)
+    pad_image = pad_image.resize(images[0].size, Image.LANCZOS)
     images = [add_white_border(image) for image in images]
     assert len(captions) == len(images)
     for i,caption in enumerate(captions):
@@ -217,7 +219,7 @@ def concat_images_vertically_and_scale(images,scale_factor=2):
     # 缩放图像为1/n高度
     new_height = concatenated_image.height // scale_factor
     new_width = concatenated_image.width // scale_factor
-    resized_image = concatenated_image.resize((new_width, new_height), Image.ANTIALIAS)
+    resized_image = concatenated_image.resize((new_width, new_height), Image.LANCZOS)
     
     return resized_image
 
@@ -257,7 +259,7 @@ def combine_images_vertically_with_resize(images):
         # 计算新高度保持图片长宽比
         new_height = int(min_width * img.height / img.width)
         # 调整图片大小
-        resized_img = img.resize((min_width, new_height), Image.ANTIALIAS)
+        resized_img = img.resize((min_width, new_height), Image.LANCZOS)
         resized_images.append(resized_img)
     
     # 计算所有调整尺寸后图片的总高度
