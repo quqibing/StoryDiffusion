@@ -52,8 +52,6 @@ torchvision: <https://download.pytorch.org/whl/torchvision/>
 pip install "torch-2.2.2+cu121-cp310-cp310-win_amd64.whl" "torchvision-0.17.2+cu121-cp310-cp310-win_amd64.whl" -r requirements.txt
 ~~~
 
-gradio 4.23.0在windows下有bug, 所以必须用4.21.0版本.
-
 安装Triton
 
 下载: <https://github.com/PrashantSaikia/Triton-for-Windows>
