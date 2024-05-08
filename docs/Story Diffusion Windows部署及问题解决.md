@@ -1,4 +1,4 @@
-# Story Diffusion Windows部署问题解决
+# Story Diffusion Windows部署及问题解决
 
 ## 环境
 
@@ -7,11 +7,11 @@
 - GPU: 4070Ti 12G显存
 - 内存: 32G
 - 系统: windows 11
-- cuda: 1.12.1
+- cuda: 12.1
 - torch: 2.2.2
 - python: 3.10
 
-这个项目已经修改成了适配torch2.2.2版本. 3.11无法安装windows版本triton.
+我clone的这个项目已经修改成了适配torch2.2.2版本. 3.11无法安装windows版本triton.
 
 ## 步骤
 
